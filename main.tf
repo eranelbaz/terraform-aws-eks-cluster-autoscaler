@@ -18,6 +18,11 @@ resource "helm_release" "cluster_autoscaler" {
     "rbac.serviceAccount.annotations.eks.amazonaws.com/role-arn" = var.k8s_service_account_name
   }), var.values]
 
+  set {
+    name  = "autoDiscovery.clusterName"
+    value = var.cluster_name
+  }
+  
   dynamic "set" {
     for_each = var.settings
     content {
